@@ -10,8 +10,15 @@ class Front extends Phaser.Scene{
         this.add.image(game.config.width/2, game.config.height/2, "postcardBack").setScale(1.25)
         
         // Litter Minigame Area
-        this.add.rectangle(100, game.config.height/2 - 50, 250, 250, 0x00ff00).setOrigin(0)
-        var randomCoords = Phaser.Math.Between(100, 100+250)
-        
+        this.add.rectangle(100, game.config.height/2 - 50, 625, 250, 0x00ff00).setOrigin(0)
+
+        this.trashcan = this.add.image(50, game.config.height/3 + 50, "trashcan").setOrigin(0).setScale(0.5)
+
+        // Running Minigame
+        this.duo = this.add.image(game.config.width - 200, game.config.height/2+100, "duoCutout").setOrigin(0).setScale(0.5)
+        .setInteractive({ useHandCursor: true })
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.start("dialougeScene");
+        })
     }
 }
