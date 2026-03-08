@@ -10,12 +10,13 @@ class Menu extends Phaser.Scene {
         this.load.image("duoCutout", "sprites/temp_duoCutout.png")
         this.load.image("meCutout", "sprites/temp_meCutout.png")
         this.load.image("postcardBack", "sprites/temp_postcardBack.png")
+        this.load.image("trash", "sprites/temp_trash.png")
         this.load.image("trashcan", "sprites/temp_trashcan.png")
     }
 
     create(){
         console.log("Menu Scene")
-        
+
         let menuConfig = { fontFamily: "Fantasy", fontSize: "45px", color: "#ffffff", align: "center" }
         this.add.text(game.config.width/2 - 45, 85, "Yellow", menuConfig).setOrigin(0, 0)
         
