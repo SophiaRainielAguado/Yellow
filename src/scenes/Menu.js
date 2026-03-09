@@ -6,6 +6,10 @@ class Menu extends Phaser.Scene {
     preload(){
         this.load.path = "./assets/"
 
+        // SFX
+        this.load.audio("press", "sfx/press.wav")
+        this.load.audio("trash", "sfx/trash.wav")
+
         // SPRITES
         this.load.image("duoCutout", "sprites/temp_duoCutout.png")
         this.load.image("meCutout", "sprites/temp_meCutout.png")
@@ -38,6 +42,7 @@ class Menu extends Phaser.Scene {
             button.setBackgroundColor('#8d8d8d');
         });
         button.on('pointerdown', () => {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("frontScene");
 
         });

@@ -44,6 +44,7 @@ class Front extends Phaser.Scene {
                 gameObject.getBounds(),
                 this.trashcan.getBounds()
             )) {
+                this.sound.play("trash", { volume: 0.5 });
                 gameObject.destroy()
             }
 
