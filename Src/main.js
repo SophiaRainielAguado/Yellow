@@ -2,6 +2,7 @@
 // Hours:
 // Refrences:
 // https://phaser.io/examples/v3.85.0/game-objects/text/view/simple-text-button
+// https://phaser.discourse.group/t/random-spawning/3318
 
 const config = {
     type: Phaser.AUTO,
@@ -14,7 +15,8 @@ const config = {
             debug: true
         }
     },
-    scene: [Menu, Front, Dialouge]
+    scene: [Menu, Front, Back]
 }
 
 let game = new Phaser.Game(config)
+let cursors = null

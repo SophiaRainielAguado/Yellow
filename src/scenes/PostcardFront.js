@@ -12,7 +12,8 @@ class Front extends Phaser.Scene {
         // Litter Minigame Area
         this.add.rectangle(100, game.config.height / 2 - 50, 625, 250, 0x00ff00).setOrigin(0)
 
-        this.trashcan = this.add.image(50, game.config.height / 3 + 50, "trashcan").setOrigin(0).setScale(0.5)
+        this.trashcan = this.physics.add.image(50, game.config.height / 3 + 50, "trashcan")
+            .setOrigin(0).setScale(0.5).setInteractive()
 
         // Running Minigame
         this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
@@ -21,14 +22,35 @@ class Front extends Phaser.Scene {
                 this.scene.start("dialougeScene");
             })
 
+
+        this.trashGroup = this.physics.add.group()
+        //SPAWN FUCTIONS
         for (var i = 0; i < 6; i++) {
-            let trash = new Litter(this, Phaser.Math.Between(100, 725), 
-                                    Phaser.Math.Between(game.config.height/2 - 50, game.config.height/2 + 200), "trash");
-            this.physics.add.existing(trash);
+            let trash = new Litter(this, Phaser.Math.Between(100, 725),
+                Phaser.Math.Between(game.config.height / 2 - 50, game.config.height / 2 + 200), "trash");
+
+            this.input.setDraggable(trash)
+            this.trashGroup.add(trash)
         }
+
+        cursors = this.input.keyboard.createCursorKeys()
+
+        this.input.on("drag", (pointer, gameObject, dragX, dragY) => {
+            gameObject.x = dragX
+            gameObject.y = dragY
+        })
+        this.input.on("dragend", (pointer, gameObject) => {
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                gameObject.getBounds(),
+                this.trashcan.getBounds()
+            )) {
+                gameObject.destroy()
+            }
+
+        })
     }
 
-    update(){
+    update() {
         //Add litter inteaction with trashcan, delete object
     }
 }

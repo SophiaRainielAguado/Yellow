@@ -12,6 +12,8 @@ class Menu extends Phaser.Scene {
         this.load.image("postcardBack", "sprites/temp_postcardBack.png")
         this.load.image("trash", "sprites/temp_trash.png")
         this.load.image("trashcan", "sprites/temp_trashcan.png")
+
+        this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml')
     }
 
     create(){
