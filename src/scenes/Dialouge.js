@@ -7,7 +7,7 @@ class Dialouge extends Phaser.Scene {
         // dialog constants
         this.DBOX_X = 0			        // dialog box x-position
         this.DBOX_Y = 400			    // dialog box y-position
-        this.DBOX_FONT = 'gem_font'	    // dialog box font key 
+        this.DBOX_FONT = 'crayon_font'	// dialog box font key 
 
         this.TEXT_X = 50			    // text w/in dialog box x-position
         this.TEXT_Y = 445			    // text w/in dialog box y-position
@@ -44,20 +44,10 @@ class Dialouge extends Phaser.Scene {
         //console.log(this.dialog)
 
         // ready the character dialog images offscreen
-        this.bottom = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'bottom')
-        this.bottom.speakerXOffset = 200
-        this.quince = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'quince')
-        this.quince.speakerXOffset = 120
-        this.snout = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'snout')
-        this.snout.speakerXOffset = 140
-        this.starveling = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'starveling')
-        this.starveling.speakerXOffset = 600
-        this.theseus = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'theseus')
-        this.theseus.speakerXOffset = 600
-        this.lysander = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'lysander')
-        this.lysander.speakerXOffset = 120
-        this.philostrate = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'philostrate')
-        this.philostrate.speakerXOffset = 160
+        this.me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 40, 'meCutout')
+        this.me.speakerXOffset = 200
+        this.jamienMike = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 40, 'duoCutout')
+        this.jamienMike.speakerXOffset = 200
 
         // add dialog box sprite
         this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'dialogbox').setOrigin(0)
@@ -120,7 +110,7 @@ class Dialouge extends Phaser.Scene {
                     ease: 'Linear',
                     onComplete: () => {
                         this.dialogbox.visible = false
-                        this.scene.start('titleScene')
+                        this.scene.start('backScene')
                     }
                 })
             }
