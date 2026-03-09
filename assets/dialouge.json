@@ -1,0 +1,41 @@
+[
+	[
+		{
+			"speaker" : "me",
+			"dialog" : "...",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "jamienMike",
+			"dialog" : "Hello?",
+			"newSpeaker": "true"
+		},
+		{	
+			"speaker" : "jamienMike",
+			"dialog" : "Hi, do you wanna race us?"
+		},
+		{	
+			"speaker" : "me",
+			"dialog" : "Sure (Add choice here later)",
+			"newSpeaker": "true"
+		}
+
+	],
+	[
+		{
+			"speaker" : "jamienMike",
+			"dialog" : "You run pretty fast, wanna race again?",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "jamienMike",
+			"dialog" : "We could also just talk on the grass if you want!",
+			"newSpeaker": "false"
+		},
+		{	
+			"speaker" : "jamienMike",
+			"dialog" : "So what do you say?",
+			"newSpeaker" : "false"
+		}
+	]
+]
