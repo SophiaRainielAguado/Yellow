@@ -10,10 +10,10 @@ class Front extends Phaser.Scene {
         this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack").setScale(1.25)
 
         // Litter Minigame Area
-        this.add.rectangle(100, game.config.height / 2 - 50, 625, 250, 0x00ff00).setOrigin(0)
+        this.add.image(100, game.config.height /4, "grass").setOrigin(0)
 
-        this.trashcan = this.physics.add.image(50, game.config.height / 3 + 50, "trashcan")
-            .setOrigin(0).setScale(0.5).setInteractive()
+        this.trashcan = this.physics.add.image(50, game.config.height / 3 + 25, "trashcan")
+            .setOrigin(0).setScale(1.5).setInteractive()
 
         this.input.on("dragstart", (pointer, gameObject) => {
 
@@ -72,7 +72,7 @@ class Front extends Phaser.Scene {
         //SPAWN FUCTIONS
         for (var i = 0; i < 6; i++) {
             let trash = new Litter(this, Phaser.Math.Between(100, 725),
-                Phaser.Math.Between(game.config.height / 2 - 50, game.config.height / 2 + 200),
+                Phaser.Math.Between(game.config.height/4, game.config.height/4 + 394),
                 "trash", Phaser.Math.Between(0, 4)); // Random frame
 
             this.input.setDraggable(trash)

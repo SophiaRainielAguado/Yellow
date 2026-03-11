@@ -13,6 +13,7 @@ class Menu extends Phaser.Scene {
         this.load.json('dialog', 'dialouge.json')
 
         // SPRITES
+        this.load.image("grass", "sprites/grass.png")
         this.load.image("duoCutout", "sprites/temp_duoCutout.png")
         this.load.image("meCutout", "sprites/temp_meCutout.png")
         this.load.image("postcardBack", "sprites/temp_postcardBack.png")
@@ -20,7 +21,7 @@ class Menu extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 64
         })
-        this.load.image("trashcan", "sprites/temp_trashcan.png")
+        this.load.image("trashcan", "sprites/trashcan.png")
 
         this.load.bitmapFont('crayon_font', 'pastelCrayon.png', 'pastelCrayon.xml')
     }
