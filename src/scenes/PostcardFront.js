@@ -8,10 +8,16 @@ class Front extends Phaser.Scene {
 
         // Background
         this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack").setScale(1.25)
+        this.add.image(100, game.config.height /4, "grass").setOrigin(0)    // litter Spawn Area
+        
+        // RUNNING MINIGAME
+        this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
+            .setInteractive({ useHandCursor: true })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.start("dialougeScene");
+            })
 
         // LITTER MINIGAME
-        this.add.image(100, game.config.height /4, "grass").setOrigin(0)    // litter Spawn Area
-
         this.trashcan = this.physics.add.image(50, game.config.height/4 - 25, "trashcan")
             .setOrigin(0).setScale(1.5).setInteractive()
 
@@ -77,14 +83,6 @@ class Front extends Phaser.Scene {
             }
 
         })
-
-        // Running Minigame
-        this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
-            .setInteractive({ useHandCursor: true })
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                this.scene.start("dialougeScene");
-            })
-
 
         cursors = this.input.keyboard.createCursorKeys()
     }
