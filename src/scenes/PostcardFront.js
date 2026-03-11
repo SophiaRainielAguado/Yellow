@@ -12,7 +12,7 @@ class Front extends Phaser.Scene {
         // Litter Minigame Area
         this.add.image(100, game.config.height /4, "grass").setOrigin(0)
 
-        this.trashcan = this.physics.add.image(50, game.config.height / 3 + 25, "trashcan")
+        this.trashcan = this.physics.add.image(50, game.config.height/4 - 25, "trashcan")
             .setOrigin(0).setScale(1.5).setInteractive()
 
         this.input.on("dragstart", (pointer, gameObject) => {
