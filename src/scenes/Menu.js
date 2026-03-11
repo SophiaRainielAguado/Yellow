@@ -6,13 +6,20 @@ class Menu extends Phaser.Scene {
     preload(){
         this.load.path = "./assets/"
 
+        // SFX
+        this.load.audio("press", "sfx/press.wav")
+        this.load.audio("trash", "sfx/trash.wav")
+     
         this.load.json('dialog', 'dialouge.json')
 
         // SPRITES
         this.load.image("duoCutout", "sprites/temp_duoCutout.png")
         this.load.image("meCutout", "sprites/temp_meCutout.png")
         this.load.image("postcardBack", "sprites/temp_postcardBack.png")
-        this.load.image("trash", "sprites/temp_trash.png")
+        this.load.spritesheet("trash", "sprites/trash.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        })
         this.load.image("trashcan", "sprites/temp_trashcan.png")
 
         this.load.bitmapFont('crayon_font', 'pastelCrayon.png', 'pastelCrayon.xml')
@@ -41,6 +48,7 @@ class Menu extends Phaser.Scene {
             button.setBackgroundColor('#8d8d8d');
         });
         button.on('pointerdown', () => {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("frontScene");
 
         });
