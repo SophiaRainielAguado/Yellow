@@ -35,6 +35,14 @@ class Front extends Phaser.Scene {
             this.input.setDraggable(trash)
             this.trashGroup.add(trash)
         }
+        
+        // Running Minigame
+        this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
+            .setInteractive({ useHandCursor: true })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.start("dialougeScene");
+            })
+
 
         cursors = this.input.keyboard.createCursorKeys()
 
