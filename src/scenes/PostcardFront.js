@@ -8,8 +8,10 @@ class Front extends Phaser.Scene {
 
         // Background
         this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack").setScale(1.25)
-        this.add.image(100, game.config.height /4, "grass").setOrigin(0)    // litter Spawn Area
-        
+        this.add.image(100, game.config.height / 4, "grass").setOrigin(0)    // litter Spawn Area
+
+        this.instructionText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, 'crayon_font', '', 12).setOrigin(0.5)
+
         // RUNNING MINIGAME
         this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
             .setInteractive({ useHandCursor: true })
@@ -18,7 +20,7 @@ class Front extends Phaser.Scene {
             })
 
         // LITTER MINIGAME
-        this.trashcan = this.physics.add.image(50, game.config.height/4 - 25, "trashcan")
+        this.trashcan = this.physics.add.image(50, game.config.height / 4 - 25, "trashcan")
             .setOrigin(0).setScale(1.5).setInteractive()
 
         this.input.on("dragstart", (pointer, gameObject) => {       // cursor initial click
@@ -65,12 +67,15 @@ class Front extends Phaser.Scene {
         this.trashGroup = this.physics.add.group()
         for (var i = 0; i < 6; i++) {
             let trash = new Litter(this, Phaser.Math.Between(100, 725),
-                Phaser.Math.Between(game.config.height/4, game.config.height/4 + 394),
+                Phaser.Math.Between(game.config.height / 4, game.config.height / 4 + 394),
                 "trash", Phaser.Math.Between(0, 4)); // Random frame
 
             this.input.setDraggable(trash)
             this.trashGroup.add(trash)
         }
+
+        cursors = this.input.keyboard.createCursorKeys()
+        this.reload = this.input.keyboard.addKey('R')
 
         // Litter & Trashcan Interaction
         this.input.on("dragend", (pointer, gameObject) => {
@@ -84,6 +89,29 @@ class Front extends Phaser.Scene {
 
         })
 
-        cursors = this.input.keyboard.createCursorKeys()
+        document.getElementById('info').innerHTML = 
+            '<strong>PostcardFront.js</strong><br>R: Restart current scene<br>D: Debug Toggle'
+
+    }
+    update() {
+        if (Phaser.Input.Keyboard.JustDown(this.reload)) {
+            this.scene.restart()
+        }
+
+        if (this.trashGroup.getLength() == 0) {
+            let trashcanWiggle = this.tweens.add({
+                targets: this.trashcan,
+                alpha: { from: 0, to: 1 },
+                scale: { from: 1.5, to: 0 },
+                angle: { from: 0, to: 360 },
+                ease: 'Sine.easeInOut',
+                duration: 4000,
+                repeat: 1,
+                yoyo: false,
+                onComplete: () => {
+                    this.trashcan.destroy()
+                }
+            })
+        }
     }
 }
