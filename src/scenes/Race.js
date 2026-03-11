@@ -11,5 +11,8 @@ class Race extends Phaser.Scene {
     
     create() {
         console.log("Race Minigame")
+
+        document.getElementById('info').innerHTML =
+            '<strong>Race.js</strong><br>'
     }
 }
