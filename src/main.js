@@ -20,8 +20,20 @@ const config = {
             debug: true
         }
     },
-    scene: [Menu, Front, Dialouge, Back]
+    scene: [Menu, Front, Dialouge, Race, Back]
 }
-
 let game = new Phaser.Game(config)
 let cursors = null
+
+let debugToggle = true
+window.addEventListener("keydown", (event) => {
+    if(event.key.toLowerCase() === "d") {
+        debugToggle = !debugToggle
+
+        game.scene.getScenes(true).forEach(scene => {
+            if(scene.physics && scene.physics.world.debugGraphic){
+                scene.physics.world.debugGraphic.setVisible(debugToggle)
+            }
+        })
+    }
+})
