@@ -12,7 +12,17 @@ class Litter extends Phaser.Physics.Arcade.Sprite {
         this.floatTween = this.scene.tweens.add({
             targets: this,
             y: this.y + Phaser.Math.Between(3, 7),
-            duration: Phaser.Math.Between(700, 1200),
+            x: this.x + Phaser.Math.Between(-8, 8), // wind drift
+            duration: Phaser.Math.Between(1200, 2000),
+            ease: "Sine.easeInOut",
+            yoyo: true,
+            repeat: -1
+        });
+
+        this.rotateTween = this.scene.tweens.add({
+            targets: this,
+            angle: Phaser.Math.Between(-5, 5),
+            duration: Phaser.Math.Between(800, 1400),
             ease: "Sine.easeInOut",
             yoyo: true,
             repeat: -1

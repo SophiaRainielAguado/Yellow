@@ -16,23 +16,36 @@ class Front extends Phaser.Scene {
             .setOrigin(0).setScale(0.5).setInteractive()
 
         this.input.on("dragstart", (pointer, gameObject) => {
-            if (gameObject.floatTween) {
-                gameObject.floatTween.pause()
-            }
-        })
-        this.input.on("dragstart", (pointer, gameObject) => {
-            if (gameObject.floatTween) {
-                gameObject.floatTween.stop();
-            }
+
+            if (gameObject.floatTween) gameObject.floatTween.stop();
+            if (gameObject.rotateTween) gameObject.rotateTween.stop();
+
+            gameObject.dragOffsetX = pointer.x - gameObject.x;
+            gameObject.dragOffsetY = pointer.y - gameObject.y;
+
+        });
+
+        this.input.on("drag", (pointer, gameObject) => {
+            gameObject.x = Phaser.Math.Linear(gameObject.x, pointer.x - gameObject.dragOffsetX, 0.35);
+            gameObject.y = Phaser.Math.Linear(gameObject.y, pointer.y - gameObject.dragOffsetY, 0.35);
         });
 
         this.input.on("dragend", (pointer, gameObject) => {
 
-            // restart float animation
             gameObject.floatTween = this.tweens.add({
                 targets: gameObject,
                 y: gameObject.y + Phaser.Math.Between(3, 7),
-                duration: Phaser.Math.Between(700, 1200),
+                x: gameObject.x + Phaser.Math.Between(-8, 8),
+                duration: Phaser.Math.Between(1200, 2000),
+                ease: "Sine.easeInOut",
+                yoyo: true,
+                repeat: -1
+            });
+
+            gameObject.rotateTween = this.tweens.add({
+                targets: gameObject,
+                angle: Phaser.Math.Between(-5, 5),
+                duration: Phaser.Math.Between(800, 1400),
                 ease: "Sine.easeInOut",
                 yoyo: true,
                 repeat: -1
