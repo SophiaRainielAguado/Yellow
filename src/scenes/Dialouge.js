@@ -38,8 +38,6 @@ class Dialouge extends Phaser.Scene {
 
     create() {
         console.log("Dialouge Screen")
-        this.instructionText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, 'crayon_font', '', 12).setOrigin(0.5)
-
 
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog')

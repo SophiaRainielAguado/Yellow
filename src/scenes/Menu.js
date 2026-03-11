@@ -56,5 +56,7 @@ class Menu extends Phaser.Scene {
             button.setBackgroundColor('#2d2d2d');
         });
         
+        document.getElementById('info').innerHTML =
+            '<strong>Menu.js</strong><br>'
     }
 }

@@ -8,5 +8,8 @@ class Back extends Phaser.Scene {
         //background
         this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack")
             .setScale(1.25)
+
+        document.getElementById('info').innerHTML =
+            '<strong>PostCardBack.js</strong><br>'
     }
 }
