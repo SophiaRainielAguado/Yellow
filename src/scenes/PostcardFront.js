@@ -15,12 +15,22 @@ class Front extends Phaser.Scene {
         this.trashcan = this.physics.add.image(50, game.config.height / 3 + 50, "trashcan")
             .setOrigin(0).setScale(0.5).setInteractive()
 
+        // Running Minigame
+        this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout")
+            .setOrigin(0).setScale(0.5)
+            .setInteractive({ useHandCursor: true })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.start("dialougeScene");
+            })
+
+
         this.trashGroup = this.physics.add.group()
 
         //SPAWN FUCTIONS
         for (var i = 0; i < 6; i++) {
             let trash = new Litter(this, Phaser.Math.Between(100, 725),
-                Phaser.Math.Between(game.config.height / 2 - 50, game.config.height / 2 + 200), "trash");
+                Phaser.Math.Between(game.config.height / 2 - 50, game.config.height / 2 + 200), 
+                "trash", Phaser.Math.Between(0, 4)); // Random frame
 
             this.input.setDraggable(trash)
             this.trashGroup.add(trash)
@@ -50,9 +60,5 @@ class Front extends Phaser.Scene {
             }
 
         })
-    }
-
-    update() {
-        //Add litter inteaction with trashcan, delete object
     }
 }
