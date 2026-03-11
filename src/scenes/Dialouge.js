@@ -38,6 +38,8 @@ class Dialouge extends Phaser.Scene {
 
     create() {
         console.log("Dialouge Screen")
+        this.instructionText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, 'crayon_font', '', 12).setOrigin(0.5)
+
 
         // parse dialog from JSON file
         this.dialog = this.cache.json.get('dialog')
@@ -61,6 +63,9 @@ class Dialouge extends Phaser.Scene {
 
         // start first dialog conversation
         this.typeText()
+
+        document.getElementById('info').innerHTML =
+            '<strong>Dialouge.js</strong><br>↑: Yes. Go to Race Minigame <br>↓: No. Go to Postcard Back<br>'
     }
 
     update() {
@@ -70,9 +75,9 @@ class Dialouge extends Phaser.Scene {
         }
 
         // check if yes or no
-        if(Phaser.Input.Keyboard.JustDown(cursors.up) && !this.dialogTyping){
+        if (Phaser.Input.Keyboard.JustDown(cursors.up) && !this.dialogTyping) {
             this.scene.start("raceScene")
-        } else if (Phaser.Input.Keyboard.JustDown(cursors.down) && !this.dialogTyping){
+        } else if (Phaser.Input.Keyboard.JustDown(cursors.down) && !this.dialogTyping) {
             this.typeText()
         }
     }

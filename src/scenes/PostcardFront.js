@@ -90,7 +90,7 @@ class Front extends Phaser.Scene {
         })
 
         document.getElementById('info').innerHTML =
-            '<strong>PostcardFront.js</strong><br>R: Restart current scene<br>D: Debug Toggle'
+            '<strong>PostcardFront.js</strong><br>R: Restart current scene<br>D: Debug Toggle<br>'
 
     }
     update() {
