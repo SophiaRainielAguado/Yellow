@@ -6,6 +6,9 @@ class Litter extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this)
 
         this.setInteractive({ draggable: true })
+        this.body.setDamping(true)
+        this.body.setDrag(0.95)
+        this.body.setMaxVelocity(300)
         this.body.onCollide = true
         this.body.onOverlap = true
 

@@ -26,9 +26,16 @@ class Front extends Phaser.Scene {
         });
 
         this.input.on("drag", (pointer, gameObject) => {
-            gameObject.x = Phaser.Math.Linear(gameObject.x, pointer.x - gameObject.dragOffsetX, 0.35);
-            gameObject.y = Phaser.Math.Linear(gameObject.y, pointer.y - gameObject.dragOffsetY, 0.35);
-        });
+
+            let targetX = pointer.x - gameObject.dragOffsetX
+            let targetY = pointer.y - gameObject.dragOffsetY
+
+            let dx = targetX - gameObject.x
+            let dy = targetY - gameObject.y
+
+            gameObject.body.setVelocity(dx * 5, dy * 5)
+
+        })
 
         this.input.on("dragend", (pointer, gameObject) => {
 
