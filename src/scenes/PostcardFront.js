@@ -89,7 +89,7 @@ class Front extends Phaser.Scene {
 
         })
 
-        document.getElementById('info').innerHTML = 
+        document.getElementById('info').innerHTML =
             '<strong>PostcardFront.js</strong><br>R: Restart current scene<br>D: Debug Toggle'
 
     }
@@ -99,19 +99,20 @@ class Front extends Phaser.Scene {
         }
 
         if (this.trashGroup.getLength() == 0) {
-            let trashcanWiggle = this.tweens.add({
-                targets: this.trashcan,
-                alpha: { from: 0, to: 1 },
-                scale: { from: 1.5, to: 0 },
-                angle: { from: 0, to: 360 },
-                ease: 'Sine.easeInOut',
-                duration: 4000,
-                repeat: 1,
-                yoyo: false,
-                onComplete: () => {
-                    this.trashcan.destroy()
-                }
-            })
+            // let trashcanWiggle = this.tweens.add({
+            //     targets: this.trashcan,
+            //     alpha: { from: 0, to: 1 },
+            //     scale: { from: 1.5, to: 0 },
+            //     angle: { from: 0, to: 360 },
+            //     ease: 'Sine.easeInOut',
+            //     duration: 4000,
+            //     repeat: 1,
+            //     yoyo: false,
+            //     onComplete: () => {
+                    
+            //     }
+            // })
+            this.trashcan.destroy()
         }
     }
 }
