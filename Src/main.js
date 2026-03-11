@@ -20,7 +20,7 @@ const config = {
             debug: true
         }
     },
-    scene: [Menu, Front, Dialouge, Back]
+    scene: [Menu, Front, Dialouge, Race, Back]
 }
 
 let game = new Phaser.Game(config)

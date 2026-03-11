@@ -68,6 +68,13 @@ class Dialouge extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
             this.typeText() // trigger dialog
         }
+
+        // check if yes or no
+        if(Phaser.Input.Keyboard.JustDown(cursors.up) && !this.dialogTyping){
+            this.scene.start("raceScene")
+        } else if (Phaser.Input.Keyboard.JustDown(cursors.down) && !this.dialogTyping){
+            this.typeText()
+        }
     }
 
     typeText() {
