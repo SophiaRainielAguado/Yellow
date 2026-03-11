@@ -30,10 +30,8 @@ class Front extends Phaser.Scene {
             let targetX = pointer.x - gameObject.dragOffsetX
             let targetY = pointer.y - gameObject.dragOffsetY
 
-            let dx = targetX - gameObject.x
-            let dy = targetY - gameObject.y
-
-            gameObject.body.setVelocity(dx * 5, dy * 5)
+            gameObject.x = Phaser.Math.Linear(gameObject.x, targetX, 0.08)
+            gameObject.y = Phaser.Math.Linear(gameObject.y, targetY, 0.08)
 
         })
 
@@ -59,6 +57,7 @@ class Front extends Phaser.Scene {
             });
 
         });
+
         // Running Minigame
         this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout")
             .setOrigin(0).setScale(0.5)
@@ -90,10 +89,6 @@ class Front extends Phaser.Scene {
 
         cursors = this.input.keyboard.createCursorKeys()
 
-        this.input.on("drag", (pointer, gameObject, dragX, dragY) => {
-            gameObject.x = dragX
-            gameObject.y = dragY
-        })
         this.input.on("dragend", (pointer, gameObject) => {
             if (Phaser.Geom.Intersects.RectangleToRectangle(
                 gameObject.getBounds(),
