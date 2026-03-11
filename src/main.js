@@ -25,6 +25,7 @@ const config = {
 let game = new Phaser.Game(config)
 let cursors = null
 
+// DEBUG TOGGLE
 let debugToggle = true
 window.addEventListener("keydown", (event) => {
     if(event.key.toLowerCase() === "d") {

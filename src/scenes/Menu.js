@@ -8,7 +8,7 @@ class Menu extends Phaser.Scene {
 
         // SFX
         this.load.audio("press", "sfx/press.wav")
-        this.load.audio("trash", "sfx/trash.wav")
+        this.load.audio("throw", "sfx/throwAway.wav")
      
         this.load.json('dialog', 'dialouge.json')
 
@@ -23,16 +23,15 @@ class Menu extends Phaser.Scene {
         })
         this.load.image("trashcan", "sprites/trashcan.png")
 
+        // FONT
         this.load.bitmapFont('crayon_font', 'pastelCrayon.png', 'pastelCrayon.xml')
     }
 
     create(){
         console.log("Menu Scene")
-
-        let menuConfig = { fontFamily: "Fantasy", fontSize: "45px", color: "#ffffff", align: "center" }
-        //this.add.text(game.config.width/2 - 45, 85, "Yellow", menuConfig).setOrigin(0, 0)
-        
+        // TITLE
         this.add.bitmapText(game.config.width/2 - 125, 85, "crayon_font", "Yellow", 90)
+
         // START BUTTON
         const button = this.add.text(game.config.width/4, 300, 'Play?', {
             fontFamily: 'Arial',
@@ -43,8 +42,8 @@ class Menu extends Phaser.Scene {
             backgroundColor: '#2d2d2d'
         }).setPadding(32).setOrigin(0.5);    
 
+        // BUTTON BEHAVIOR
         button.setInteractive({ useHandCursor: true });
-
         button.on('pointerover', () => {
             button.setBackgroundColor('#8d8d8d');
         });

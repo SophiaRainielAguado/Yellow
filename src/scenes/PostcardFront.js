@@ -6,17 +6,16 @@ class Front extends Phaser.Scene {
     create() {
         console.log("Postcard Front")
 
-        //background
+        // Background
         this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack").setScale(1.25)
 
-        // Litter Minigame Area
-        this.add.image(100, game.config.height /4, "grass").setOrigin(0)
+        // LITTER MINIGAME
+        this.add.image(100, game.config.height /4, "grass").setOrigin(0)    // litter Spawn Area
 
         this.trashcan = this.physics.add.image(50, game.config.height/4 - 25, "trashcan")
             .setOrigin(0).setScale(1.5).setInteractive()
 
-        this.input.on("dragstart", (pointer, gameObject) => {
-
+        this.input.on("dragstart", (pointer, gameObject) => {       // cursor initial click
             if (gameObject.floatTween) gameObject.floatTween.stop();
             if (gameObject.rotateTween) gameObject.rotateTween.stop();
 
@@ -25,8 +24,7 @@ class Front extends Phaser.Scene {
 
         });
 
-        this.input.on("drag", (pointer, gameObject) => {
-
+        this.input.on("drag", (pointer, gameObject) => {        // litter follows mouse
             let targetX = pointer.x - gameObject.dragOffsetX
             let targetY = pointer.y - gameObject.dragOffsetY
 
@@ -36,8 +34,7 @@ class Front extends Phaser.Scene {
         })
 
         this.input.on("dragend", (pointer, gameObject) => {
-
-            gameObject.floatTween = this.tweens.add({
+            gameObject.floatTween = this.tweens.add({       // restart "floating" animation
                 targets: gameObject,
                 y: gameObject.y + Phaser.Math.Between(3, 7),
                 x: gameObject.x + Phaser.Math.Between(-8, 8),
@@ -47,7 +44,7 @@ class Front extends Phaser.Scene {
                 repeat: -1
             });
 
-            gameObject.rotateTween = this.tweens.add({
+            gameObject.rotateTween = this.tweens.add({      // restart "wiggle" animation
                 targets: gameObject,
                 angle: Phaser.Math.Between(-5, 5),
                 duration: Phaser.Math.Between(800, 1400),
@@ -58,8 +55,7 @@ class Front extends Phaser.Scene {
 
         });
 
-
-        //SPAWN FUCTIONS
+        //SPAWN FUCTION
         this.trashGroup = this.physics.add.group()
         for (var i = 0; i < 6; i++) {
             let trash = new Litter(this, Phaser.Math.Between(100, 725),
@@ -70,6 +66,18 @@ class Front extends Phaser.Scene {
             this.trashGroup.add(trash)
         }
 
+        // Litter & Trashcan Interaction
+        this.input.on("dragend", (pointer, gameObject) => {
+            if (Phaser.Geom.Intersects.RectangleToRectangle(
+                gameObject.getBounds(),
+                this.trashcan.getBounds()
+            )) {
+                this.sound.play("throw", { volume: 0.5 });
+                gameObject.destroy()
+            }
+
+        })
+
         // Running Minigame
         this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
             .setInteractive({ useHandCursor: true })
@@ -79,16 +87,5 @@ class Front extends Phaser.Scene {
 
 
         cursors = this.input.keyboard.createCursorKeys()
-
-        this.input.on("dragend", (pointer, gameObject) => {
-            if (Phaser.Geom.Intersects.RectangleToRectangle(
-                gameObject.getBounds(),
-                this.trashcan.getBounds()
-            )) {
-                this.sound.play("trash", { volume: 0.5 });
-                gameObject.destroy()
-            }
-
-        })
     }
 }

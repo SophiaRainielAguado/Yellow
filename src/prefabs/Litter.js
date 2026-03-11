@@ -12,6 +12,7 @@ class Litter extends Phaser.Physics.Arcade.Sprite {
         this.body.onCollide = true
         this.body.onOverlap = true
 
+        // Adds a swaying animation for litter, moves side to side
         this.floatTween = this.scene.tweens.add({
             targets: this,
             y: this.y + Phaser.Math.Between(3, 7),
@@ -22,6 +23,7 @@ class Litter extends Phaser.Physics.Arcade.Sprite {
             repeat: -1
         });
 
+        // Adds a wiggling animation for litter
         this.rotateTween = this.scene.tweens.add({
             targets: this,
             angle: Phaser.Math.Between(-5, 5),
