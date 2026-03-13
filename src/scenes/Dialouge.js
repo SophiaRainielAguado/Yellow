@@ -44,10 +44,12 @@ class Dialouge extends Phaser.Scene {
         //console.log(this.dialog)
 
         // ready the character dialog images offscreen
-        this.me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 40, 'meCutout')
+        this.me = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 125, 'me').setScale(1.5)
         this.me.speakerXOffset = 200
-        this.jamienMike = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 40, 'duoCutout')
-        this.jamienMike.speakerXOffset = 200
+        this.jamie = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 125, 'jamie').setScale(1.65)
+        this.jamie.speakerXOffset = 200
+        this.mike = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y - 125, 'mike').setScale(1.60)
+        this.mike.speakerXOffset = 200
 
         // add dialog box sprite
         this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'dialogbox').setOrigin(0)

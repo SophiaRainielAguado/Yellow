@@ -6,13 +6,14 @@
 			"newSpeaker" : "true"
 		},
 		{
-			"speaker" : "jamienMike",
+			"speaker" : "mike",
 			"dialog" : "Hello?",
 			"newSpeaker": "true"
 		},
 		{	
-			"speaker" : "jamienMike",
-			"dialog" : "Hi, do you wanna race us?"
+			"speaker" : "jamie",
+			"dialog" : "Hi, do you wanna race us?",
+			"newSpeaker": "true"
 		},
 		{	
 			"speaker" : "me",
@@ -23,19 +24,19 @@
 	],
 	[
 		{
-			"speaker" : "jamienMike",
+			"speaker" : "jamie",
 			"dialog" : "You run pretty fast, wanna race again?",
 			"newSpeaker" : "true"
 		},
 		{
-			"speaker" : "jamienMike",
+			"speaker" : "jamie",
 			"dialog" : "We could also just talk on the grass if you want!",
 			"newSpeaker": "false"
 		},
 		{	
-			"speaker" : "jamienMike",
+			"speaker" : "mike",
 			"dialog" : "So what do you say?",
-			"newSpeaker" : "false"
+			"newSpeaker" : "true"
 		}
 	]
 ]

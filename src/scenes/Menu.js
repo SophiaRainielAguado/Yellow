@@ -14,8 +14,9 @@ class Menu extends Phaser.Scene {
 
         // SPRITES
         this.load.image("grass", "sprites/grass.png")
-        this.load.image("duoCutout", "sprites/temp_duoCutout.png")
-        this.load.image("meCutout", "sprites/temp_meCutout.png")
+        this.load.image("jamie", "sprites/jamieCutout.png")
+        this.load.image("mike", "sprites/mikeCutout.png")
+        this.load.image("me", "sprites/meCutout.png")
         this.load.image("postcardBack", "sprites/temp_postcardBack.png")
         this.load.spritesheet("trash", "sprites/trash.png", {
             frameWidth: 64,

@@ -13,7 +13,12 @@ class Front extends Phaser.Scene {
         this.instructionText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, 'crayon_font', '', 12).setOrigin(0.5)
 
         // RUNNING MINIGAME
-        this.duo = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "duoCutout").setOrigin(0).setScale(0.5)
+        this.jamie = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "jamie").setOrigin(0).setScale(0.5)
+            .setInteractive({ useHandCursor: true })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.start("dialougeScene");
+            })
+        this.mike = this.add.image(game.config.width - 250, game.config.height / 2 + 115, "mike").setOrigin(0).setScale(0.45)
             .setInteractive({ useHandCursor: true })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.start("dialougeScene");
