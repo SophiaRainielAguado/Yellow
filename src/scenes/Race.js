@@ -71,7 +71,7 @@ class Race extends Phaser.Scene {
             this.endRace("me");
         } else if (this.jamie.x >= this.x_finishLine) {
             this.endRace("Jamie");
-        } else if (this.mikeSpeed.x >= this.x_finishLine) {
+        } else if (this.mike.x >= this.x_finishLine) {
             this.endRace("NPC 2");
         }
     }
@@ -79,6 +79,10 @@ class Race extends Phaser.Scene {
     endRace(winner) {
         this.raceFinished = true;
         console.log(`${winner} wins!`);
-        this.scene
+
+        // wake dialogue scene
+        this.scene.stop();                 // close race scene
+        this.scene.wake("dialougeScene");  // resume dialogue
     }
+
 }

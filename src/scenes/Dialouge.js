@@ -29,6 +29,9 @@ class Dialouge extends Phaser.Scene {
         this.dialogText = null			// the actual dialog text
         this.nextText = null			// player prompt text to continue typing
 
+        // flags
+        this.dialogChoice = false
+
         // character variables
         this.tweenDuration = 500        // character in/out tween duration
 
@@ -66,25 +69,42 @@ class Dialouge extends Phaser.Scene {
 
         document.getElementById('info').innerHTML =
             '<strong>Dialouge.js</strong><br>↑: Yes. Go to Race Minigame <br>↓: No. Go to Postcard Back<br>'
+
+        this.events.on("wake", () => {
+            this.typeText();
+        });
+
     }
 
     update() {
         // check for spacebar press
-        if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
-            this.typeText() // trigger dialog
+        if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping && !this.dialogChoice) {
+            this.typeText()
         }
 
+
         // check if yes or no
-        if (Phaser.Input.Keyboard.JustDown(cursors.up) && !this.dialogTyping) {
-            this.scene.start("raceScene")
-        } else if (Phaser.Input.Keyboard.JustDown(cursors.down) && !this.dialogTyping) {
-            this.typeText()
+        // only allow arrow input if a choice exists
+        if (this.dialogChoice && !this.dialogTyping) {
+
+            if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
+                this.dialogChoice = false
+                this.scene.sleep()
+                this.scene.launch("raceScene")
+            }
+
+            if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
+                this.dialogChoice = false
+                this.typeText()
+            }
+
         }
     }
 
     typeText() {
         // lock input while typing
         this.dialogTyping = true
+        this.dialogChoice = false
 
         // clear text
         this.dialogText.text = ''
@@ -130,6 +150,9 @@ class Dialouge extends Phaser.Scene {
             // ...if we still have conversations left, set current speaker
             this.dialogSpeaker = this.dialog[this.dialogConvo][this.dialogLine]['speaker']
 
+            // check if this line is a choice
+            let currentLine = this.dialog[this.dialogConvo][this.dialogLine]
+
             // check if there's a new speaker (for exit/enter animations)
             if (this.dialog[this.dialogConvo][this.dialogLine]['newSpeaker']) {
                 // tween out prior speaker's image
@@ -169,11 +192,32 @@ class Dialouge extends Phaser.Scene {
                     // check if timer has exhausted its repeats 
                     // (necessary since Phaser 3 no longer seems to have an onComplete event)
                     if (this.textTimer.getRepeatCount() == 0) {
-                        // show prompt for more text
-                        this.nextText = this.add.bitmapText(this.NEXT_X, this.NEXT_Y, this.DBOX_FONT, this.NEXT_TEXT, this.TEXT_SIZE).setOrigin(1)
-                        this.dialogTyping = false   // un-lock input
-                        this.textTimer.destroy()    // destroy timer
+
+                        let currentLine = this.dialog[this.dialogConvo][this.dialogLine - 1]
+
+                        if (currentLine.choice) {
+                            this.dialogChoice = true
+                            this.nextText = this.add.bitmapText(
+                                this.NEXT_X,
+                                this.NEXT_Y,
+                                this.DBOX_FONT,
+                                "[up] Race   [down] Stay",
+                                this.TEXT_SIZE
+                            ).setOrigin(1)
+                        } else {
+                            this.nextText = this.add.bitmapText(
+                                this.NEXT_X,
+                                this.NEXT_Y,
+                                this.DBOX_FONT,
+                                this.NEXT_TEXT,
+                                this.TEXT_SIZE
+                            ).setOrigin(1)
+                        }
+
+                        this.dialogTyping = false
+                        this.textTimer.destroy()
                     }
+
                 },
                 callbackScope: this // keep Scene context
             })
