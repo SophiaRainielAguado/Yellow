@@ -7,22 +7,20 @@ class Front extends Phaser.Scene {
         console.log("Postcard Front")
 
         // Background
-        this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack").setScale(1.25)
-        this.add.image(100, game.config.height / 4, "grass").setOrigin(0)    // litter Spawn Area
+        this.add.image(game.config.width / 2, game.config.height / 2, "bg")
+        this.add.image(game.config.width / 2, game.config.height / 2, "postcardFront").setScale(1.25)
+        this.add.image(game.config.width / 2, game.config.height / 2, "grass").setScale(1.25)    // litter Spawn Area
 
         this.instructionText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, 'crayon_font', '', 12).setOrigin(0.5)
 
         // RUNNING MINIGAME
-        this.jamie = this.add.image(game.config.width - 200, game.config.height / 2 + 100, "jamie").setOrigin(0).setScale(0.5)
+        this.duo = this.add.image(game.config.width - 250, game.config.height / 2 + 100, "duoSilloutte").setOrigin(0).setScale(0.5)
             .setInteractive({ useHandCursor: true })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
                 this.scene.start("dialougeScene");
             })
-        this.mike = this.add.image(game.config.width - 250, game.config.height / 2 + 115, "mike").setOrigin(0).setScale(0.45)
-            .setInteractive({ useHandCursor: true })
-            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-                this.scene.start("dialougeScene");
-            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => this.duo.setTexture("duo"))
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => this.duo.setTexture("duoSilloutte"))
 
         // LITTER MINIGAME
         this.trashcan = this.physics.add.image(50, game.config.height / 4 - 25, "trashcan")
@@ -114,7 +112,7 @@ class Front extends Phaser.Scene {
             //     repeat: 1,
             //     yoyo: false,
             //     onComplete: () => {
-                    
+
             //     }
             // })
             this.trashcan.destroy()

@@ -17,7 +17,7 @@
 		},
 		{	
 			"speaker" : "me",
-			"dialog" : "Sure (Add choice here later)",
+			"dialog" : "....",
 			"newSpeaker": true,
 			"choice": true
 		}

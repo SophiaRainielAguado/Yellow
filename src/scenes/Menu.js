@@ -12,24 +12,37 @@ class Menu extends Phaser.Scene {
 
         this.load.json('dialog', 'dialouge.json')
 
+
         // SPRITES
+        // background
+        this.load.image("bg", "sprites/background.png")
+        this.load.image("postcardFront", "sprites/postcard_front.png")
+        this.load.image("postcardBack", "sprites/postcard_Back.png")
         this.load.image("grass", "sprites/grass.png")
-        this.load.image("jamie", "sprites/jamieCutout.png")
+        this.load.image("dialogBox", "sprites/dialog_box.png")
+        this.load.image("dialogBg", "sprites/dialog_bg.png")
+        this.load.image("raceBg", "sprites/race_bg.png")
+
+        // characters  & animation spritesheets
+        this.load.image("jamie", "sprites/jamie_cutout.png")
         this.load.spritesheet("jamie_Running", "sprites/jamie_running.png", {
             frameWidth: 200,
             frameHeight: 200
         });
-        this.load.image("mike", "sprites/mikeCutout.png")
+        this.load.image("mike", "sprites/mike_cutout.png")
         this.load.spritesheet("mike_Running", "sprites/mike_running.png", {
             frameWidth: 200,
             frameHeight: 200
         });
-        this.load.image("me", "sprites/meCutout.png")
+        this.load.image("me", "sprites/sofa_cutout.png")
         this.load.spritesheet("sofa_Running", "sprites/sofa_running.png", {
             frameWidth: 200,
             frameHeight: 200
         });
-        this.load.image("postcardBack", "sprites/temp_postcardBack.png")
+        this.load.image("duoSilloutte", "sprites/duo_silloutte.png")
+        this.load.image("duo", "sprites/duo_cutout.png")
+
+        // litter minigame sprites
         this.load.spritesheet("trash", "sprites/trash.png", {
             frameWidth: 64,
             frameHeight: 64

@@ -9,25 +9,28 @@ class Race extends Phaser.Scene {
             '<strong>Race.js</strong><br>CLICK!!!!<br>'
 
         this.add.bitmapText(game.config.width / 2 - 150, 85, "crayon_font", "CLICK 4 SPEED", 45)
+
+        this.add.image(game.config.width / 2, game.config.height / 2, "raceBg")
+
         // GOAL distance! "win" variable in x-position
-        this.x_finishLine = 725
+        this.x_finishLine = 675
 
         // TEMPORARY SCALE TILL ASSETS FOR RUNNING MADE
-        this.jamie = this.add.sprite(100, game.config.height / 2, "jamie_Running").setOrigin(0).setScale(0.5)
+        this.jamie = this.add.sprite(100, game.config.height - 200, "jamie_Running").setOrigin(0).setScale(0.75)
         this.jamie.play("jRun");
         this.jamie.on('animationupdate', (anim, frame) => {
             if (frame.index % 2 === 0) {
                 this.jamie.y += 3;
             } else { this.jamie.y -= 3; }
         });
-        this.me = this.add.sprite(100, game.config.height / 3, "me").setOrigin(0).setScale(0.5)
+        this.me = this.add.sprite(100, game.config.height/2 - 50, "me").setOrigin(0).setScale(0.75)
         this.me.play("sRun");
         this.me.on('animationupdate', (anim, frame) => {
             if (frame.index % 2 === 0) {
                 this.me.y += 3;
             } else { this.me.y -= 3; }
         });
-        this.mike = this.add.sprite(100, game.config.height / 4 - 55, "mike_Running").setOrigin(0).setScale(0.5)
+        this.mike = this.add.sprite(100, 100, "mike_Running").setOrigin(0).setScale(0.75)
         this.mike.play("mRun");
         this.mike.on('animationupdate', (anim, frame) => {
             if (frame.index % 2 === 0) {

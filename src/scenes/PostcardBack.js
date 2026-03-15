@@ -6,6 +6,7 @@ class Back extends Phaser.Scene {
         console.log("Postcard Back")
 
         //background
+        this.add.image(game.config.width / 2, game.config.height / 2, "bg")
         this.add.image(game.config.width / 2, game.config.height / 2, "postcardBack")
             .setScale(1.25)
 
@@ -13,43 +14,47 @@ class Back extends Phaser.Scene {
             '<strong>PostCardBack.js</strong><br>'
 
         const boxX = 100
-        const boxY = game.config.height / 4
-        const boxWidth = 400
+        const boxY = 150
+        const boxWidth = 300
         const boxHeight = 350
 
-        const textBox = this.add.rectangle(boxX, boxY, boxWidth, boxHeight, 0x000000)
+        const textBox = this.add.rectangle(boxX, boxY, boxWidth, boxHeight, 0xFDF3C0)
             .setOrigin(0)
 
         const message =
             `Dear Michael,
-        We have been friends for
-        a while. Do you know we've 
-        known each other for 10 
-        years? Thats a decade!
+    We have been friends 
+    for a while. Do you 
+    know we've known each 
+    other for 10 years? 
+    Thats a decade!
             
-        I don't have the best 
-        memory but I do remember 
-        how we first met. So here's
-        to our everlasting friendship.
+    I don't have the best 
+    memory but I do 
+    remember how we first 
+    met. So here's to our 
+    everlasting friendship.
 
-        To our shared love for map
-        games, history, and dinos!
-        To the silent rest we share,
-        to the debate of the state
-        of the world, and the
-        meaningless chatter
-        in-between that remind me
-        I am alive and humanly so.
+    To our shared love for 
+    map games, history, 
+    and dinos! To the 
+    silent rest we share,
+    to the debate of the 
+    state of the world, 
+    and the meaningless 
+    chatter in-between 
+    that remind me I am 
+    alive and humanly so.
 
-        Thank you for being my
-        friend.
+    Thank you for being 
+    my friend.
 
-        P.S. Did you know the
-        color of friendship is
-        Yellow?
+    P.S. Did you know the
+    color of friendship is
+    Yellow?
             
-    Sincerely your friend, 
-    Sophia Rainiel A. Aguado`
+Sincerely your friend, 
+Sophia Rainiel A. Aguado`
 
         const text = this.add.bitmapText(boxX + 10, boxY + 10,
             "crayon_font", message, 21)
