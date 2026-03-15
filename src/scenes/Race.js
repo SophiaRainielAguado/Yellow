@@ -13,9 +13,29 @@ class Race extends Phaser.Scene {
         this.x_finishLine = 725
 
         // TEMPORARY SCALE TILL ASSETS FOR RUNNING MADE
-        this.jamie = this.add.sprite(100, game.config.height / 2, "jamie").setOrigin(0).setScale(0.5)
+        this.jamie = this.add.sprite(100, game.config.height / 2, "jamie_Running").setOrigin(0).setScale(0.5)
+        this.jamie.play("jRun");
+        this.jamie.on('animationupdate', (anim, frame) => {
+            if (frame.index % 2 === 0) {
+                this.jamie.y += 3;
+            } else { this.jamie.y -= 3; }
+        });
         this.me = this.add.sprite(100, game.config.height / 3, "me").setOrigin(0).setScale(0.5)
-        this.mike = this.add.sprite(100, game.config.height / 4 - 55, "mike").setOrigin(0).setScale(0.5)
+        this.me.play("sRun");
+        this.me.on('animationupdate', (anim, frame) => {
+            if (frame.index % 2 === 0) {
+                this.me.y += 3;
+            } else { this.me.y -= 3; }
+        });
+        this.mike = this.add.sprite(100, game.config.height / 4 - 55, "mike_Running").setOrigin(0).setScale(0.5)
+        this.mike.play("mRun");
+        this.mike.on('animationupdate', (anim, frame) => {
+            if (frame.index % 2 === 0) {
+                this.mike.y += 3;
+            } else { this.mike.y -= 3; }
+        });
+
+
         // Speeds
         this.meSpeed = 0;
         this.jamieSpeed = Phaser.Math.Between(100, 170);
@@ -34,7 +54,7 @@ class Race extends Phaser.Scene {
             loop: true,
             callback: () => {
                 let clicksPerSecond = this.clickCount * 2;
-                this.meSpeed = clicksPerSecond * 40;
+                this.meSpeed = clicksPerSecond * 25;
                 this.clickCount = 0;
             }
         });
