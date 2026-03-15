@@ -69,8 +69,8 @@ class Front extends Phaser.Scene {
         //SPAWN FUCTION
         this.trashGroup = this.physics.add.group()
         for (var i = 0; i < 6; i++) {
-            let trash = new Litter(this, Phaser.Math.Between(100, 725),
-                Phaser.Math.Between(game.config.height / 4, game.config.height / 4 + 394),
+            let trash = new Litter(this, Phaser.Math.Between(112, 727),
+                Phaser.Math.Between(165, 514),
                 "trash", Phaser.Math.Between(0, 4)); // Random frame
 
             this.input.setDraggable(trash)
