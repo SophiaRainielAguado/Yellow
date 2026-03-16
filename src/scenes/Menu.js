@@ -22,7 +22,7 @@ class Menu extends Phaser.Scene {
         this.load.image("menuBg", "background/menu_bg.png")
         this.load.image("bg", "background/background.png")
         this.load.image("postcardFront", "background/postcard_front.png")
-        this.load.image("postcardBack", "background/postcard_Back.png")
+        this.load.image("postcardBack", "background/postcard_back.png")
         this.load.image("grass", "background/grass.png")
         this.load.image("dialogBox", "background/dialog_box.png")
         this.load.image("dialogBg", "background/dialog_bg.png")
