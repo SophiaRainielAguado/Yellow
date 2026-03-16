@@ -23,8 +23,8 @@ class Front extends Phaser.Scene {
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => this.duo.setTexture("duoSilloutte"))
 
         // LITTER MINIGAME
-        this.trashcan = this.physics.add.image(50, game.config.height / 4 - 25, "trashcan")
-            .setOrigin(0).setScale(1.5).setInteractive()
+        this.trashcan = this.physics.add.image(50, game.config.height / 4 - 25, "trashcan").setOrigin(0).setScale(1.5)
+            .setInteractive()
 
         this.input.on("dragstart", (pointer, gameObject) => {       // cursor initial click
             if (gameObject.floatTween) gameObject.floatTween.stop();
@@ -32,7 +32,7 @@ class Front extends Phaser.Scene {
 
             gameObject.dragOffsetX = pointer.x - gameObject.x;
             gameObject.dragOffsetY = pointer.y - gameObject.y;
-
+            this.sound.play("pickUp")
         });
 
         this.input.on("drag", (pointer, gameObject) => {        // litter follows mouse
@@ -86,36 +86,26 @@ class Front extends Phaser.Scene {
                 gameObject.getBounds(),
                 this.trashcan.getBounds()
             )) {
-                this.sound.play("throw", { volume: 0.5 });
+                this.playRandomSound()
                 gameObject.destroy()
             }
 
         })
 
-        document.getElementById('info').innerHTML =
-            '<strong>PostcardFront.js</strong><br>R: Restart current scene<br>D: Debug Toggle<br>'
+        document.getElementById('info').innerHTML = '<strong>PostcardFront.js</strong><br>R: Restart current scene<br>D: Debug Toggle<br>'
 
     }
     update() {
-        if (Phaser.Input.Keyboard.JustDown(this.reload)) {
-            this.scene.restart()
-        }
+        if (Phaser.Input.Keyboard.JustDown(this.reload)) { this.scene.restart()}
 
-        if (this.trashGroup.getLength() == 0) {
-            // let trashcanWiggle = this.tweens.add({
-            //     targets: this.trashcan,
-            //     alpha: { from: 0, to: 1 },
-            //     scale: { from: 1.5, to: 0 },
-            //     angle: { from: 0, to: 360 },
-            //     ease: 'Sine.easeInOut',
-            //     duration: 4000,
-            //     repeat: 1,
-            //     yoyo: false,
-            //     onComplete: () => {
+        if (this.trashGroup.getLength() == 0) { this.trashcan.destroy() }
+    }
 
-            //     }
-            // })
-            this.trashcan.destroy()
-        }
+    // From Rocket Patrol Mods
+    playRandomSound() {
+        const soundVarients = ["throw1", "throw2", "throw3"]
+        const randomSound = Phaser.Math.RND.pick(soundVarients)
+        this.sound.play(randomSound)
     }
 }
+

@@ -72,20 +72,18 @@ class Dialouge extends Phaser.Scene {
         document.getElementById('info').innerHTML =
             '<strong>Dialouge.js</strong><br>↑: Yes. Go to Race Minigame <br>↓: No. Go to Postcard Back<br>'
 
+        // pause and unpausing between raceScene and dialougeScene
         this.events.on("wake", (sys, data) => {
-
             if (data && data.next !== undefined) {
                 this.dialogConvo = data.next
                 this.dialogLine = 0
             }
-
             this.typeText()
         })
 
     }
 
     update() {
-
         // SPACE → continue dialogue
         if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping && !this.dialogChoice) {
             this.typeText()
@@ -93,12 +91,10 @@ class Dialouge extends Phaser.Scene {
 
         // choices
         if (this.dialogChoice && !this.dialogTyping) {
-
             if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
                 this.handleChoice(this.dialogChoice.up)
                 this.dialogChoice = null
             }
-
             if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
                 this.handleChoice(this.dialogChoice.down)
                 this.dialogChoice = null
@@ -116,15 +112,6 @@ class Dialouge extends Phaser.Scene {
         this.dialogText.text = ''
         this.nextText.text = ''
 
-        /* JSON dialog structure: 
-            - each array within the main JSON array is a "conversation"
-            - each object within a "conversation" is a "line"
-            - each "line" can have 3 properties: 
-                1. a speaker (required)
-                2. the dialog text (required)
-                3. an (optional) flag indicating if this speaker is new
-        */
-
         // make sure there are lines left to read in this conversation, otherwise jump to next conversation
         if (!this.dialog[this.dialogConvo]) {
             console.error("Conversation does not exist:", this.dialogConvo)
@@ -138,12 +125,10 @@ class Dialouge extends Phaser.Scene {
         }
 
         if (this.dialogLine > this.dialog[this.dialogConvo].length - 1) {
-
             let lastLine = this.dialog[this.dialogConvo][this.dialog[this.dialogConvo].length - 1]
 
             // stop dialogue if this branch ends
             if (lastLine.end) {
-
                 console.log("Dialogue branch finished")
 
                 if (this.dialogLastSpeaker) {
@@ -158,10 +143,8 @@ class Dialouge extends Phaser.Scene {
                         }
                     })
                 }
-
                 return
             }
-
             this.dialogLine = 0
             this.dialogConvo++
         }
@@ -270,10 +253,8 @@ class Dialouge extends Phaser.Scene {
     }
 
     handleChoice(result) {
-
         // go to another scene
         if (typeof result === "string") {
-
             this.scene.sleep()
             this.scene.launch(result)
             return
@@ -281,7 +262,6 @@ class Dialouge extends Phaser.Scene {
 
         // jump to another conversation
         if (typeof result === "number") {
-
             this.dialogConvo = result
             this.dialogLine = 0
             this.typeText()
@@ -290,7 +270,6 @@ class Dialouge extends Phaser.Scene {
 
         // object result (scene + return conversation)
         if (typeof result === "object") {
-
             this.scene.sleep()
             this.scene.launch(result.scene, { next: result.next })
             return

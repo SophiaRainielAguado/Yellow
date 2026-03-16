@@ -16,6 +16,19 @@ class Race extends Phaser.Scene {
 
         this.add.image(game.config.width / 2, game.config.height / 2, "raceBg")
 
+        // MUSIC
+        this.sound.get("bgMusic")?.pause();
+        this.music = this.sound.add("raceMusic")
+        var musicConfig = {
+            mute: false,
+            volume: 0.25,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            delay: 0
+        }
+        this.music.play({ loop: true });
+
         this.raceStarted = false;
         this.startText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, "crayon_font", "CLICK!", 64)
             .setOrigin(0.5);
@@ -124,6 +137,12 @@ class Race extends Phaser.Scene {
     endRace(winner) {
         this.raceFinished = true;
         console.log(`${winner} wins!`);
+
+        // stop race music
+        this.music.stop();
+
+        // resume background music
+        this.sound.get("bgMusic")?.resume();
 
         // wake dialogue scene
         this.scene.stop()
