@@ -15,6 +15,7 @@ class Menu extends Phaser.Scene {
 
         // SPRITES
         // background
+        this.load.image("menuBg", "sprites/menu_bg.png")
         this.load.image("bg", "sprites/background.png")
         this.load.image("postcardFront", "sprites/postcard_front.png")
         this.load.image("postcardBack", "sprites/postcard_Back.png")
@@ -55,31 +56,33 @@ class Menu extends Phaser.Scene {
 
     create() {
         console.log("Menu Scene")
+
+        this.add.image(game.config.width / 2, game.config.height / 2, "menuBg")
         // TITLE
-        this.add.bitmapText(game.config.width / 2 - 125, 85, "crayon_font", "Yellow", 90)
+        this.add.bitmapText(game.config.width / 2 - 125, 150, "crayon_font", "Yellow", 90)
+        this.add.bitmapText(game.config.width / 2 - 125, 300, "crayon_font", "by: Sophia Rainiel Arevalo Aguado", 20).setTint(0xdca6fd);
 
         // START BUTTON
-        const button = this.add.text(game.config.width / 4, 300, 'Play?', {
-            fontFamily: 'Arial',
-            fontSize: '32px',
-            color: '#ffffff',
-            align: 'center',
-            fixedWidth: 260,
-            backgroundColor: '#2d2d2d'
-        }).setPadding(32).setOrigin(0.5);
+        const button = this.add.bitmapText(game.config.width / 2 + 25, 265,
+            "crayon_font", "Play?", 32).setOrigin(0.5);
 
         // BUTTON BEHAVIOR
         button.setInteractive({ useHandCursor: true });
-        button.on('pointerover', () => {
-            button.setBackgroundColor('#8d8d8d');
+
+        // hover
+        button.on("pointerover", () => {
+            button.setTint(0xdca6fd);
         });
-        button.on('pointerdown', () => {
+
+        // click
+        button.on("pointerdown", () => {
             this.sound.play("press", { volume: 0.5 });
             this.scene.start("frontScene");
-
         });
-        button.on('pointerout', () => {
-            button.setBackgroundColor('#2d2d2d');
+
+        // leave
+        button.on("pointerout", () => {
+            button.clearTint(); // return to original color
         });
 
         document.getElementById('info').innerHTML =

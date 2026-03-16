@@ -2,15 +2,38 @@ class Race extends Phaser.Scene {
     constructor() {
         super("raceScene")
     }
+    init(data) {
+        // store which conversation to return to
+        this.returnData = data;
+    }
+
     create() {
         console.log("Race Minigame")
+
 
         document.getElementById('info').innerHTML =
             '<strong>Race.js</strong><br>CLICK!!!!<br>'
 
-        this.add.bitmapText(game.config.width / 2 - 150, 85, "crayon_font", "CLICK 4 SPEED", 45)
-
         this.add.image(game.config.width / 2, game.config.height / 2, "raceBg")
+
+        this.raceStarted = false;
+        this.startText = this.add.bitmapText(game.config.width / 2, game.config.height / 2, "crayon_font", "CLICK!", 64)
+            .setOrigin(0.5);
+        this.tweens.add({
+            targets: this.startText,
+            scale: 1.3,
+            duration: 400,
+            yoyo: true,
+            repeat: -1,
+            ease: "Sine.easeInOut"
+        });
+        this.time.delayedCall(2000, () => {
+
+            this.raceStarted = true;
+
+            this.startText.destroy();
+
+        });
 
         // GOAL distance! "win" variable in x-position
         this.x_finishLine = 675
@@ -23,7 +46,7 @@ class Race extends Phaser.Scene {
                 this.jamie.y += 3;
             } else { this.jamie.y -= 3; }
         });
-        this.me = this.add.sprite(100, game.config.height/2 - 50, "me").setOrigin(0).setScale(0.75)
+        this.me = this.add.sprite(100, game.config.height / 2 - 50, "me").setOrigin(0).setScale(0.75)
         this.me.play("sRun");
         this.me.on('animationupdate', (anim, frame) => {
             if (frame.index % 2 === 0) {
@@ -41,8 +64,8 @@ class Race extends Phaser.Scene {
 
         // Speeds
         this.meSpeed = 0;
-        this.jamieSpeed = Phaser.Math.Between(100, 170);
-        this.mikeSpeed = Phaser.Math.Between(100, 140);
+        this.jamieSpeed = Phaser.Math.Between(170, 270);
+        this.mikeSpeed = Phaser.Math.Between(140, 240);
 
         // Click tracking
         this.clickCount = 0;
@@ -76,16 +99,15 @@ class Race extends Phaser.Scene {
     }
 
     update(time, delta) {
-        if (this.raceFinished) return;
+
+        if (!this.raceStarted || this.raceFinished) return;
 
         const dt = delta / 1000;
 
-        // Move racers
         this.me.x += this.meSpeed * dt;
         this.jamie.x += this.jamieSpeed * dt;
         this.mike.x += this.mikeSpeed * dt;
 
-        // Check finish
         this.checkWinner();
     }
 
@@ -104,8 +126,7 @@ class Race extends Phaser.Scene {
         console.log(`${winner} wins!`);
 
         // wake dialogue scene
-        this.scene.stop();                 // close race scene
-        this.scene.wake("dialougeScene");  // resume dialogue
+        this.scene.stop()
+        this.scene.wake("dialougeScene", this.returnData)
     }
-
 }

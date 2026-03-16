@@ -72,32 +72,36 @@ class Dialouge extends Phaser.Scene {
         document.getElementById('info').innerHTML =
             '<strong>Dialouge.js</strong><br>↑: Yes. Go to Race Minigame <br>↓: No. Go to Postcard Back<br>'
 
-        this.events.on("wake", () => {
-            this.typeText();
-        });
+        this.events.on("wake", (sys, data) => {
+
+            if (data && data.next !== undefined) {
+                this.dialogConvo = data.next
+                this.dialogLine = 0
+            }
+
+            this.typeText()
+        })
 
     }
 
     update() {
-        // check for spacebar press
+
+        // SPACE → continue dialogue
         if (Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping && !this.dialogChoice) {
             this.typeText()
         }
 
-
-        // check if yes or no
-        // only allow arrow input if a choice exists
+        // choices
         if (this.dialogChoice && !this.dialogTyping) {
 
             if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
-                this.dialogChoice = false
-                this.scene.sleep()
-                this.scene.launch("raceScene")
+                this.handleChoice(this.dialogChoice.up)
+                this.dialogChoice = null
             }
 
             if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
-                this.dialogChoice = false
-                this.typeText()
+                this.handleChoice(this.dialogChoice.down)
+                this.dialogChoice = null
             }
 
         }
@@ -122,10 +126,43 @@ class Dialouge extends Phaser.Scene {
         */
 
         // make sure there are lines left to read in this conversation, otherwise jump to next conversation
+        if (!this.dialog[this.dialogConvo]) {
+            console.error("Conversation does not exist:", this.dialogConvo)
+            return
+        }
+
+        // make sure there are lines left to read in this conversation
+        if (!this.dialog[this.dialogConvo]) {
+            console.error("Conversation does not exist:", this.dialogConvo)
+            return
+        }
+
         if (this.dialogLine > this.dialog[this.dialogConvo].length - 1) {
+
+            let lastLine = this.dialog[this.dialogConvo][this.dialog[this.dialogConvo].length - 1]
+
+            // stop dialogue if this branch ends
+            if (lastLine.end) {
+
+                console.log("Dialogue branch finished")
+
+                if (this.dialogLastSpeaker) {
+                    this.tweens.add({
+                        targets: this[this.dialogLastSpeaker],
+                        x: this.OFFSCREEN_X,
+                        duration: this.tweenDuration,
+                        ease: 'Linear',
+                        onComplete: () => {
+                            this.dialogbox.visible = false
+                            this.scene.start("backScene")
+                        }
+                    })
+                }
+
+                return
+            }
+
             this.dialogLine = 0
-            // I increment the conversation count here...
-            // ..but you could create logic to exit if each conversation was self-contained
             this.dialogConvo++
         }
 
@@ -154,6 +191,7 @@ class Dialouge extends Phaser.Scene {
 
             // check if this line is a choice
             let currentLine = this.dialog[this.dialogConvo][this.dialogLine]
+            this.dialogChoice = currentLine.choice || null
 
             // check if there's a new speaker (for exit/enter animations)
             if (this.dialog[this.dialogConvo][this.dialogLine]['newSpeaker']) {
@@ -198,7 +236,7 @@ class Dialouge extends Phaser.Scene {
                         let currentLine = this.dialog[this.dialogConvo][this.dialogLine - 1]
 
                         if (currentLine.choice) {
-                            this.dialogChoice = true
+                            this.dialogChoice = currentLine.choice
                             this.nextText = this.add.bitmapText(
                                 this.NEXT_X,
                                 this.NEXT_Y,
@@ -228,6 +266,34 @@ class Dialouge extends Phaser.Scene {
             this.dialogText.maxWidth = this.TEXT_MAX_WIDTH  // set bounds on dialog
             this.dialogLine++                               // increment dialog line
             this.dialogLastSpeaker = this.dialogSpeaker     // set past speaker
+        }
+    }
+
+    handleChoice(result) {
+
+        // go to another scene
+        if (typeof result === "string") {
+
+            this.scene.sleep()
+            this.scene.launch(result)
+            return
+        }
+
+        // jump to another conversation
+        if (typeof result === "number") {
+
+            this.dialogConvo = result
+            this.dialogLine = 0
+            this.typeText()
+            return
+        }
+
+        // object result (scene + return conversation)
+        if (typeof result === "object") {
+
+            this.scene.sleep()
+            this.scene.launch(result.scene, { next: result.next })
+            return
         }
     }
 }

@@ -1,66 +1,95 @@
 [
 	[
 		{
-			"speaker" : "me",
-			"dialog" : "...",
-			"newSpeaker" : true
+			"speaker": "me",
+			"dialog": "...",
+			"newSpeaker": true
 		},
 		{
-			"speaker" : "mike",
-			"dialog" : "Hello?",
+			"speaker": "mike",
+			"dialog": "Hello?",
 			"newSpeaker": true
 		},
-		{	
-			"speaker" : "jamie",
-			"dialog" : "Hi, do you wanna race us?",
+		{
+			"speaker": "jamie",
+			"dialog": "Hi, do you wanna race us?",
 			"newSpeaker": true
 		},
-		{	
-			"speaker" : "me",
-			"dialog" : "....",
+		{
+			"speaker": "me",
+			"dialog": "....",
 			"newSpeaker": true,
-			"choice": true
+			"choice": {
+				"up": {
+					"scene": "raceScene",
+					"next": 2
+				},
+				"down": 1
+			}
 		}
-
 	],
 	[
 		{
-			"speaker" : "jamie",
-			"dialog" : "You run pretty fast, wanna race again?",
-			"newSpeaker" : true
+			"speaker": "mike",
+			"dialog": "That's okay we can talk about dinosaurs instead.",
+			"newSpeaker": true
 		},
 		{
-			"speaker" : "jamie",
-			"dialog" : "We could also just talk on the grass if you want!",
+			"speaker": "jamie",
+			"dialog": "Do you like dinos?",
+			"newSpeaker": true
+		},
+		{
+			"speaker": "me",
+			"dialog": "Not sure, I don't know a lot about dinosaurs. Tell me somthing interesting about dinos!",
+			"newSpeaker": true,
+			"end": true
+		}
+	],
+	[
+		{
+			"speaker": "jamie",
+			"dialog": "You run pretty fast, wanna race again?",
+			"newSpeaker": true
+		},
+		{
+			"speaker": "jamie",
+			"dialog": "We could also just talk on the grass if you want!",
 			"newSpeaker": false
 		},
-		{	
-			"speaker" : "mike",
-			"dialog" : "So what do you say?",
-			"newSpeaker" : true
+		{
+			"speaker": "mike",
+			"dialog": "So what do you say?",
+			"newSpeaker": true
 		},
-		{	
-			"speaker" : "me",
-			"dialog" : "Hmmmm",
-			"newSpeaker" : true,
-			"choice": true
+		{
+			"speaker": "me",
+			"dialog": "Hmmmm",
+			"newSpeaker": true,
+			"choice": {
+				"up": {
+					"scene": "raceScene",
+					"next": 3
+				},
+				"down": 1
+			}
 		}
 	],
 	[
 		{
-			"speaker" : "jamie",
-			"dialog" : "Okay, i'm tired now. That was fun!!",
-			"newSpeaker" : true
-		},
-		{
-			"speaker" : "mike",
-			"dialog" : "Do you like dinosaurs?",
+			"speaker": "jamie",
+			"dialog": "Okay, i'm tired now. That was fun!!",
 			"newSpeaker": true
 		},
-		{	
-			"speaker" : "me",
-			"dialog" : "Not sure, I don't know a lot about dinosaurs. Tell me somthing interesting about dinos!",
-			"newSpeaker" : true
+		{
+			"speaker": "mike",
+			"dialog": "Do you like dinosaurs?",
+			"newSpeaker": true
+		},
+		{
+			"speaker": "me",
+			"dialog": "Not sure, I don't know a lot about dinosaurs. Tell me somthing interesting about dinos!",
+			"newSpeaker": true
 		}
 	]
 ]
