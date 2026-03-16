@@ -18,6 +18,8 @@ class Back extends Phaser.Scene {
         const boxHeight = 350
 
         const textBox = this.add.rectangle(boxX, boxY, boxWidth, boxHeight, 0xFDF3C0).setOrigin(0)
+        this.add.bitmapText(game.config.width / 2 + 225, boxY + 35, "crayon_font", "Click US!", 21).setTint(0xdca6fd)
+        this.add.bitmapText(boxX + 65, boxY + boxHeight + 15, "crayon_font", "Scroll to Read!", 21).setTint(0xdca6fd)
 
         const message =
             `Dear Michael,

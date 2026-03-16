@@ -17,7 +17,7 @@ class Race extends Phaser.Scene {
         this.add.image(game.config.width / 2, game.config.height / 2, "raceBg")
 
         // MUSIC
-        this.sound.get("bgMusic")?.pause();
+        game.bgMusic?.pause();
         this.music = this.sound.add("raceMusic")
         var musicConfig = {
             mute: false,
@@ -142,7 +142,7 @@ class Race extends Phaser.Scene {
         this.music.stop();
 
         // resume background music
-        this.sound.get("bgMusic")?.resume();
+        game.bgMusic?.resume();
 
         // wake dialogue scene
         this.scene.stop()

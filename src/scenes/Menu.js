@@ -57,6 +57,10 @@ class Menu extends Phaser.Scene {
             frameHeight: 64
         })
         this.load.image("trashcan", "sprites/trashcan.png")
+        this.load.spritesheet("flowers", "sprites/flowers.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        })
 
         // FONT
         this.load.bitmapFont('crayon_font', 'pastelCrayon.png', 'pastelCrayon.xml')

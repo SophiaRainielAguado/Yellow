@@ -96,9 +96,34 @@ class Front extends Phaser.Scene {
 
     }
     update() {
-        if (Phaser.Input.Keyboard.JustDown(this.reload)) { this.scene.restart()}
+        if (Phaser.Input.Keyboard.JustDown(this.reload)) { this.scene.restart() }
 
-        if (this.trashGroup.getLength() == 0) { this.trashcan.destroy() }
+        if (this.trashGroup.getLength() == 0 && this.trashcan) {
+
+            this.add.particles(this.trashcan.x, this.trashcan.y, 'flowers', {
+                frame: [0, 1, 2],
+
+                quantity: 30,
+                emitting: false,
+
+                angle: { min: 0, max: 360 },     // emit in all directions
+                speed: { min: 80, max: 160 },
+
+                lifespan: 1500,
+
+                scale: { start: 0.8, end: 0 },
+
+                rotate: { min: 0, max: 360 },
+
+                accelerationX: { min: -50, max: 50 },
+                accelerationY: { min: -50, max: 50 },
+
+                gravityY: 40
+            }).explode(30, this.trashcan.x, this.trashcan.y)
+
+            this.trashcan.destroy()
+            this.trashcan = null
+        }
     }
 
     // From Rocket Patrol Mods
