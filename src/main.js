@@ -1,6 +1,6 @@
 // Name: Sophia Rainiel Arevalo Aguado
-// Hours: 
-// 20 hours of coding; 4 hours 39 for art
+// Hours: 1 days 3 hours 37 minutes or 27.61667 hours 
+    // 20 hours 58 minutes of coding; 4 hours 54 minutes for art; 2ish hours for music (I forgot to set a timer)
 // Refrences:
 // Front:
 // https://phaser.io/examples/v3.85.0/game-objects/text/view/simple-text-button
